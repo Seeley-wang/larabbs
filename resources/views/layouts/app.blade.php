@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-<div id="app">
+<div id="app" class="{{ route_class() }}-page">
 
 	@include('layouts._header')
 
