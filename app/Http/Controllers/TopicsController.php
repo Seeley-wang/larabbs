@@ -16,11 +16,13 @@ class TopicsController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param Topic $topic
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request,Topic $topic)
 	{
-		$topics = Topic::with('user','category')->paginate();
+		$topics = $topic->withOrder($request->order)->paginate(30);
 		return view('topics.index', compact('topics'));
 	}
 
