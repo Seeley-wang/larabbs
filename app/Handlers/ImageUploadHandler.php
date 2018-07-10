@@ -52,7 +52,7 @@ class ImageUploadHandler
             'path' => config('app.url') . "/$folder_name/$filename"
         ];
 
-    }   
+    }
 
     /**
      * @param $file_path
