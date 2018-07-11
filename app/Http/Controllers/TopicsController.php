@@ -53,6 +53,7 @@ class TopicsController extends Controller
         try {
             $this->authorize('update', $topic);
         } catch (AuthorizationException $e) {
+            return redirect()->back();
         }
         return view('topics.create_and_edit', compact('topic', 'categories'));
     }
@@ -62,6 +63,7 @@ class TopicsController extends Controller
         try {
             $this->authorize('update', $topic);
         } catch (AuthorizationException $e) {
+            return redirect()->back();
         }
         $topic->update($request->all());
 
@@ -78,6 +80,7 @@ class TopicsController extends Controller
         try {
             $this->authorize('destroy', $topic);
         } catch (AuthorizationException $e) {
+            return redirect()->back();
         }
         $topic->delete();
 
