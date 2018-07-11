@@ -44,7 +44,7 @@ class TopicsController extends Controller
         $topic->fill($request->all());
         $topic->user_id = \Auth::id();
         $topic->save();
-        return redirect()->route('topics.show', $topic->id)->with('message', 'Created successfully.');
+        return redirect()->route('topics.show', $topic->id)->with('message', '成功创建主题！');
     }
 
     public function edit(Topic $topic)
@@ -65,7 +65,7 @@ class TopicsController extends Controller
         }
         $topic->update($request->all());
 
-        return redirect()->route('topics.show', $topic->id)->with('message', 'Updated successfully.');
+        return redirect()->route('topics.show', $topic->id)->with('message', '更新成功！');
     }
 
     /**
@@ -81,7 +81,7 @@ class TopicsController extends Controller
         }
         $topic->delete();
 
-        return redirect()->route('topics.index')->with('message', 'Deleted successfully.');
+        return redirect()->route('topics.index')->with('message', '成功删除！');
     }
 
 
@@ -93,7 +93,7 @@ class TopicsController extends Controller
             'file_path' => ''
         ];
         if ($file = $request->upload_file) {
-            $result = $uploader->save($request->upload_file, 'topics', \Auth::id(), 1024);
+            $result = $uploader->save($request->upload_file, 'to    pics', \Auth::id(), 1024);
             // 图片保存成功的话
             if ($result) {
                 $data['file_path'] = $result['path'];
@@ -101,6 +101,6 @@ class TopicsController extends Controller
                 $data['success'] = true;
             }
         }
-        return $data;   
+        return $data;
     }
 }
