@@ -79,4 +79,9 @@ class User extends Authenticatable
         $this->save();
         $this->unreadNotifications->markAsRead();
     }
+
+    public function isAuthorOf($reply)
+    {
+        return $this->id == $reply->user_id;
+    }
 }
