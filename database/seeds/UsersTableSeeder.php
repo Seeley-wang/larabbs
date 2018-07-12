@@ -36,6 +36,7 @@ class UsersTableSeeder extends Seeder
         $user = User::find(1);
         $user->name = 'clown';
         $user->email = 'clown@clown.com';
+        $user->password = bcrypt('password');
         $user->avatar = 'https://fsdhubcdn.phphub.org/uploads/images/201710/14/1/ZqM7iaP4CR.png?imageView2/1/w/200/h/200';
         $user->save();
     }
