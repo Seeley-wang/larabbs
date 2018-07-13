@@ -19,6 +19,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $avatar
  * @property string|null $introduction
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property mixed unreadNotifications
+ * @property int notification_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
@@ -75,6 +77,9 @@ class User extends Authenticatable
         return $this->hasMany(Reply::class);
     }
 
+    /**
+     *
+     */
     public function markAsRead()
     {
         $this->notification_count = 0;
@@ -85,5 +90,24 @@ class User extends Authenticatable
     public function isAuthorOf($reply)
     {
         return $this->id == $reply->user_id;
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        if (strlen($value) != 60) {
+            $value = bcrypt($value);
+        }
+
+        $this->attributes['password'] = $value;
+    }
+
+    public function setAvatarAttribute($path)
+    {
+        if (!starts_with($path, 'http')) {
+            // 拼接完整的 URL
+            $path = config('app.url') . "/uploads/images/avatars/$path";
+        }
+
+        $this->attributes['avatar'] = $path;
     }
 }
